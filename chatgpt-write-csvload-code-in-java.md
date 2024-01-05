@@ -11,7 +11,7 @@ CSV file name: /Users/vuhung/eclipse-workspace/selenium-itnews/testData/Wordpres
 CSV file content
 ``` 
 
-``` 
+```csv
 No, Username, password
 1, inactive01, inactive01
 2, inactive02, inactive02
@@ -22,7 +22,7 @@ No, Username, password
 ```
 Load the CSV file content to an array of objects 
 ```
-``` 
+```java
 public class WordpressUser {
 	private String userName;
 	private String password; 
@@ -45,7 +45,7 @@ public class WordpressUser {
 
 } 
 ``` 
-``` 
+
 
 # ChatGPT Answer
 
@@ -100,7 +100,6 @@ public class CSVLoader {
         return usersList;
     }
 }
-
 ```
 
 ```
