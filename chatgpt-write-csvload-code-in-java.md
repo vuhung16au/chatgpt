@@ -49,11 +49,9 @@ public class WordpressUser {
 
 # ChatGPT Answer
 
-```
 
 To load the CSV file content into an array of WordpressUser objects in Java, you can use the following code. This example assumes that you have the WordpressUser class defined as mentioned:
 
-``` 
 
 ```java
 import java.io.BufferedReader;
@@ -102,16 +100,15 @@ public class CSVLoader {
 }
 ```
 
-```
 In this code:
 
-The loadCSV method reads the CSV file line by line, skipping the header line.
-It splits each line into an array of strings using the comma as a delimiter.
-It creates a new WordpressUser object and sets the userName and password properties based on the values in the CSV.
-The WordpressUser objects are added to the usersList.
-Finally, the loaded WordpressUser objects are printed to the console for verification.
-Make sure to adjust the indexes in the setUserName and setPassword lines if the CSV column order is different in your actual file.
-```
+- The loadCSV method reads the CSV file line by line, skipping the header line.
+- It splits each line into an array of strings using the comma as a delimiter.
+- It creates a new WordpressUser object and sets the userName and password properties based on the values in the CSV.
+- The WordpressUser objects are added to the usersList.
+- Finally, the loaded WordpressUser objects are printed to the console for verification.
+- Make sure to adjust the indexes in the setUserName and setPassword lines if the CSV column order is different in your actual file.
+
 
 # Thoughts
 - Correct code
