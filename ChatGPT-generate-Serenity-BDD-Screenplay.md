@@ -65,7 +65,25 @@ import net.serenitybdd.screenplay.actions.Open;
 ```
 
 # ChatGPT's Answer (first round)
-With a little modification.
+
+# The main code that ChatGPT generated
+(It doesn't run in the first place) 
+
+```java
+    @Test
+    public void shouldBeAbleToLoginToWordPress() {
+        vu.attemptsTo(
+                Open.url("http://localhost:8000/wp-login.php"),
+                Login.withCredentials("vuhung", "vuhung"),
+                Ensure.that(Target.the("Dashboard page title").locatedBy("title"))
+                        .text()
+                        .contains("Dashboard ‹ oz wordpress — WordPress")
+        );
+    }
+``` 
+
+# Modified Code 
+With a little modification so that the code can run, it becomes: 
 
 ```java
 // File: src/test/java/com/vuhung/wordpress/WordpressLoginTest.java
@@ -136,56 +154,75 @@ public class WordpressLoginTest {
 ``` 
 
 # ChatGPT's Answer (second round) 
-With a little modification.
+
+
+# The main code that ChatGPT generated
+(It doesn't run in the first place) 
 
 ```java
-// File: src/test/java/com/vuhung/wordpress/WordpressLoginTest.java
-
-package com.vuhung.wordpress;
-
-import net.serenitybdd.junit.runners.SerenityRunner;
-import net.serenitybdd.screenplay.Actor;
-import net.serenitybdd.screenplay.actions.Open;
-import net.serenitybdd.screenplay.questions.page.TheWebPage;
-import net.serenitybdd.screenplay.targets.Target;
-import net.thucydides.core.annotations.Managed;
-import net.thucydides.core.annotations.Steps;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.openqa.selenium.WebDriver;
-
-import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
-import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isVisible;
-
-@RunWith(SerenityRunner.class)
-public class WordpressLoginTest {
-
-    @Managed
-    WebDriver driver;
-
-    @Steps
-    Actor vu;
-
     @Test
-    public void shouldBeAbleToLoginToWordPressAsStandardUser() {
+    public void shouldBeAbleToLoginToWordPress() {
         vu.can(BrowseTheWeb.with(driver));
 
         vu.attemptsTo(
-                Open.url("http://localhost:8000/wp-login.php").andMaximizeWindow(),
+                Open.url("http://localhost:8000/wp-login.php"),
                 Ensure.that(Target.the("Username field").locatedBy("#user_login")).isVisible(),
                 Ensure.that(Target.the("Password field").locatedBy("#user_pass")).isVisible(),
                 Ensure.that(Target.the("Login button").locatedBy("#wp-submit")).isVisible(),
+                Ensure.that(Target.the("vu can browse the URL").locatedBy("body")).isVisible(),
                 Click.on("#user_login").then(Enter.theValue("vuhung")),
                 Click.on("#user_pass").then(Enter.theValue("vuhung")),
                 Click.on("#wp-submit"),
                 WaitUntil.the(Target.the("Dashboard page title").locatedBy("title")).isPresent(),
-                Ensure.that(Target.the("Dashboard page title").locatedBy("title")).textContains("Dashboard ‹ oz wordpress — WordPress"),
-                seeThat(TheWebPage.title(), Matchers.containsString("Dashboard"))
+                Ensure.that(Target.the("Dashboard page title").locatedBy("title")).textContains("Dashboard ‹ oz wordpress — WordPress")
         );
     }
-}
+``` 
 
+# Modified Code 
+With a little modification so that the code can run, it becomes: 
+
+```java
+  @Test
+    public void shouldBeAbleToLoginToWordPressAsStandardUser() {
+    	
+    	
+        vu.can(BrowseTheWeb.with(driver));
+        
+        vu.attemptsTo(
+                Open.url("http://localhost:8000/wp-login.php"),
+                Ensure.that(Target.the("Username field").locatedBy("#user_login")).isDisplayed(),
+                Ensure.that(Target.the("Password field").locatedBy("#user_pass")).isDisplayed(),
+                Ensure.that(Target.the("Login button").locatedBy("#wp-submit")).isDisplayed()
+                );
+        
+        vu.attemptsTo( 
+                Click.on("#user_login"),
+                Enter.theValue("vuhung").into(USERNAME_FIELD)
+                ); 
+        
+        vu.attemptsTo(
+        		Click.on("#user_pass"), 
+        		Enter.theValue("vuhung").into(PASSWORD_FIELD)
+        		); 
+        
+        vu.attemptsTo(
+        		Click.on("#wp-submit")
+        		); 
+        
+        
+        // verify that the title of the page is correct (the Wordpress dashboard page 
+        vu.attemptsTo(
+        		Ensure.thatTheCurrentPage().title().contains("Dashboard ‹ oz wordpress — WordPress")
+        		);
+       
+
+    }
 ```
+
+## Final Code (Combined the Two Test Cases in a Java Class) 
+
+Final source code: [WordpressLoginTest.java](https://github.com/vuhung16au/chatgpt/blob/main/WordpressLoginTest.java)
 
 # Run the Serenity BDD's Screenplay code with maven 
 
