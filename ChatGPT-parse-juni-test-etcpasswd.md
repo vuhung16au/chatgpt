@@ -10,6 +10,9 @@ This document show the prompt, the code and the test code that ChatGPT generats 
 # Notes 
 - Change from jUnit 4 to jUnit 5 if need
 - Update the requirements, especially the non-functional requirements if needed
+- Optimized is not considered
+- Refactoring should be neccessary by human (The requirement is not included in the prompt)
+- Secure coding is not considered
 
 ```bash
 $mvn clean verify -Dit.test=EtcPasswd
