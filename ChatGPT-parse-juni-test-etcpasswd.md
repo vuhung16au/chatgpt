@@ -14,6 +14,22 @@ This document show the prompt, the code and the test code that ChatGPT generats 
 - Refactoring should be neccessary by human (The requirement is not included in the prompt)
 - Secure coding is not considered
 
+## Notes on Serenity
+
+Add the following annotation to the Test class `EtcPasswdTest`
+
+```java
+@RunWith(SerenityRunner.class)
+```
+
+```java
+@RunWith(SerenityRunner.class)
+public class EtcPasswdTest {
+	
+    @Test 
+    public void parseEtcPasswdFile() {
+``` 
+
 ```bash
 $mvn clean verify -Dit.test=EtcPasswd
 ```
