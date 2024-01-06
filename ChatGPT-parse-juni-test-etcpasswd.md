@@ -22,6 +22,8 @@ Add the following annotation to the Test class `EtcPasswdTest`
 @RunWith(SerenityRunner.class)
 ```
 
+The test code looks like: 
+
 ```java
 @RunWith(SerenityRunner.class)
 public class EtcPasswdTest {
