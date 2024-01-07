@@ -1,6 +1,6 @@
 # Overview 
 
-ChatGPT can solve quadratic equations. 
+ChatGPT can write a Java program using OOP, with junit test code to solve quadratic equations. 
 
 # Thoughts 
 
