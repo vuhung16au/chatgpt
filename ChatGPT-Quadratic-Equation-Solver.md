@@ -10,6 +10,10 @@ ChatGPT can solve quadratic equations.
 4. The code has room for improvement/refactoring
 5. ChatGPT understands zero, root. In general, it is quite smart to get the right thing from bad written prompts
 6. "quadratic formula" and "discriminant", ChatGPT can understand and use the better terminology
+7. A confusing thing here is the definition of roots. Do we (and does ChatGPT) consider (a, b, c) = (1, 2, 1) having two or one root (being distinct or not)?
+8. How do we count the number of roots? Do we limit ourself to only real numbers or complex number? (and being distinct or note, see above).
+9. For the two open questions above, we need to write clear instruction for ChatGPT (TODO)
+10. I've tried with cubic equations and got good source codes 
 
 # The prompt 
 
