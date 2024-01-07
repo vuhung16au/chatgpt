@@ -342,4 +342,27 @@ Test equation with one real root
 [INFO] Finished at: 2024-01-07T18:47:20+11:00
 [INFO] ------------------------------------------------------------------------
 vhmac:selenium-itnews vuhung$ mvn clean verify -Dit.test=QuadraticEquationSolverTest
-``` 
+```
+
+# Follow-up Prompt (Test the case when a = 0)
+
+## The prompt 
+```
+Add another test with (a, b, c) = (0, 2, 1)
+this should throws exception. 
+
+Note that we are using junit version 4 (not 5)
+```
+
+## ChatGPT's Answer 
+
+```java
+    @Test(expected = IllegalArgumentException.class)
+    public void testExceptionWhenAIsZero() {
+        QuadraticEquationSolver solver = new QuadraticEquationSolver(0, 2, 1);
+    }
+```
+
+And its explanation
+
+In this modified code, the `testExceptionWhenAIsZero` test checks that an `IllegalArgumentException` is thrown when trying to create a `QuadraticEquationSolver` with a being zero. The `@Test(expected = IllegalArgumentException.class)` annotation is used to specify that the test is expected to throw this specific exception.
