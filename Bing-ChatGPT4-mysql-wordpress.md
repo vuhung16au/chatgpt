@@ -258,3 +258,167 @@ This works like a charm
 1. Open Wordpress and set it up: http://localhost:8080/
 2. Open `phpmyadmin`: http://localhost:8081/ and use MariaDB's database username and password (root/Mari@Pass)
 
+# The Prompt (MariaDB + Wordpress + phpmyadmin + nginx)
+
+New lines added 
+```
+Nginx:
+- Use nginx as the web server 
+```
+## The Prompt (MariaDB + Wordpress + phpmyadmin + nginx)
+
+Write a Docker compose file `docker-compose.yaml` with following requirements 
+
+Database: 
+- Install docker mariadb, fixed latest stable version 
+- Root password: Mari@Pass
+- Create a database: WordpressDB
+- Create an user/password: wordpress/WpP@ssword and grant full privildge for user `wordpress` to the database WordpressDB
+- Run on default port 3306
+- Name of docker image: "Maria2024Jan"
+
+Wordpress CMS:
+- docker wordpress:6.4.2
+- depends on mariadb docker (see above)
+- Default admin/password/email for Wordpress:6.4.2: admin/vuhungOz2024/vuhung16oz@gmail.com
+- Use database `WordpressDB` we have created in the mysql docker
+- Wordpress runs on port 8080
+- name of the docker image: "wordpress2024Jan"
+
+PhpMyAdmin: 
+- docker phpmyadmin: latest stable 
+
+Nginx:
+- Use nginx as the web server 
+
+Volumes / map to /var/www/html
+
+Guide me which docker commandlines I should run to bring up and down wordpress
+
+## ChatGPT 4's Answer
+
+Here is a sample `docker-compose.yaml` file that meets your requirements:
+
+```yaml
+version: '3.7'
+
+services:
+  mariadb:
+    image: mariadb:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Mari@Pass
+      MYSQL_DATABASE: WordpressDB
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: WpP@ssword
+    ports:
+      - "3306:3306"
+    container_name: Maria2024Jan
+
+  wordpress:
+    depends_on:
+      - mariadb
+    image: wordpress:6.4.2
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: mariadb:3306
+      WORDPRESS_DB_NAME: WordpressDB
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: WpP@ssword
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_DEBUG', false);
+    ports:
+      - "8080:80"
+    container_name: wordpress2024Jan
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    environment:
+      PMA_HOST: mariadb
+      MYSQL_ROOT_PASSWORD: Mari@Pass
+    ports:
+      - "8081:80"
+    container_name: phpmyadmin2024Jan
+
+  nginx:
+    image: nginx:latest
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - wordpress
+      - phpmyadmin
+    container_name: nginx2024Jan
+
+```
+
+Please note that the `nginx.conf` file should be placed in the same directory as the `docker-compose.yaml` file. Here is a sample `nginx.conf` file that you can use:
+
+```conf
+worker_processes 1;
+
+events { worker_connections 1024; }
+
+http {
+    sendfile on;
+
+    upstream php {
+        server wordpress:9000;
+    }
+
+    server {
+        listen 80;
+        server_name localhost;
+
+        root /var/www/html;
+        index index.php;
+
+        location / {
+            try_files $uri $uri/ /index.php?$args;
+        }
+
+        location ~ \.php$ {
+            fastcgi_pass php;
+            fastcgi_index index.php;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            include fastcgi_params;
+        }
+    }
+}
+
+
+``` 
+
+## Save them to the same folder 
+
+```bash
+vhmac:00.Docker-Wordpress-MySQL-Nginx vuhung$ ls -1
+docker-compose.yaml
+nginx.conf
+``` 
+## Bring up docker 
+
+```bash
+vhmac:00.Docker-Wordpress-MySQL-Nginx vuhung$ docker-compose up -d
+```
+## Verify that They Are Running 
+
+```bash
+vhmac:00.Docker-Wordpress-MySQL-Nginx vuhung$ docker ps
+CONTAINER ID   IMAGE                          COMMAND                  CREATED         STATUS         PORTS                    NAMES
+c96bcc054cb1   nginx:latest                   "/docker-entrypoint.…"   7 minutes ago   Up 7 minutes   0.0.0.0:80->80/tcp       nginx2024Jan
+faecf8a09610   wordpress:6.4.2                "docker-entrypoint.s…"   7 minutes ago   Up 7 minutes   0.0.0.0:8080->80/tcp     wordpress2024Jan
+a7b61ac513af   mariadb:latest                 "docker-entrypoint.s…"   7 minutes ago   Up 7 minutes   0.0.0.0:3306->3306/tcp   Maria2024Jan
+58373948915d   phpmyadmin/phpmyadmin:latest   "/docker-entrypoint.…"   7 minutes ago   Up 7 minutes   0.0.0.0:8081->80/tcp     phpmyadmin2024Jan
+``` 
+## Completed Environments 
+
+1. Wordpress page: http://localhost:8080/
+2. phpmyadmin: http://localhost:8081/
+
+
+
+
