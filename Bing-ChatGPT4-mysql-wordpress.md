@@ -130,3 +130,30 @@ and we we will Wordpress setup page: `http://localhost:8080/wp-admin/install.php
 ![Bing-ChatGPT4-mysql-wordpress](https://github.com/vuhung16au/chatgpt/blob/main/Bing-ChatGPT4-mysql-wordpress-02.png?raw=true)
 ![Bing-ChatGPT4-mysql-wordpress](https://github.com/vuhung16au/chatgpt/blob/main/Bing-ChatGPT4-mysql-wordpress-03.png?raw=true)
 ![Bing-ChatGPT4-mysql-wordpress](https://github.com/vuhung16au/chatgpt/blob/main/Bing-ChatGPT4-mysql-wordpress-04.png?raw=true)
+
+# A Prompt (MariaDB + Wordpress)
+
+This works like a charm: 
+
+Write a Docker compose file `docker-compose.yaml` with following requirements 
+
+Database: 
+- Install docker mariadb, fixed latest stable version 
+- Root password: Mari@Pass
+- Create a database: WordpressDB
+- Create an user/password: wordpress/WpP@ssword and grant full privildge for user `wordpress` to the database WordpressDB
+- Run on default port 3306
+- Name of docker image: "Maria2024Jan"
+
+Wordpress CMS:
+- docker wordpress:6.4.2
+- depends on mariadb docker (see above)
+- Default admin/password/email for Wordpress:6.4.2: admin/vuhungOz2024/vuhung16oz@gmail.com
+- Use database `WordpressDB` we have created in the mysql docker
+- Wordpress runs on port 8080
+- name of the docker image: "wordpress2024Jan"
+
+Volumes / map to /var/www/html
+
+Guide me which docker commandlines I should run to bring up and down wordpress
+
