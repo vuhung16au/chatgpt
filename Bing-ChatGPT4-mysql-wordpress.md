@@ -3,6 +3,16 @@
 Using Bing/ChatGPT 4 to generate a `docker-compose.yaml` file and install Wordpress/MySQL 
 
 # Thoughts 
+- It runs in the first place, no modification required 
+- This is a simple docker compose file and ChatGPT could do it
+- Great assistant! 
+
+## ChatGPT failed when adding nginx requirements 
+
+- Use `nginx` as the web server 
+- Use `alpine` as the base OS
+
+Probably, I need some changes to the `nginx.conf` file Bing/ChatGPT4 gave me. 
 
 # The Prompt
 
