@@ -251,7 +251,7 @@ I hope this helps! Let me know if you have any other questions.
 docker-compose up -d
 ```
 
-## Complete Environments 
+## Completed Environments 
 
 This works like a charm
 
