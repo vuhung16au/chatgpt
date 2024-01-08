@@ -157,3 +157,104 @@ Volumes / map to /var/www/html
 
 Guide me which docker commandlines I should run to bring up and down wordpress
 
+# A Prompt (MariaDb + Wordpress + phpmyadmin)
+
+## The Prompt (MariaDb + Wordpress + phpmyadmin)
+
+Write a Docker compose file `docker-compose.yaml` with following requirements 
+
+Database: 
+- Install docker mariadb, fixed latest stable version 
+- Root password: Mari@Pass
+- Create a database: WordpressDB
+- Create an user/password: wordpress/WpP@ssword and grant full privildge for user `wordpress` to the database WordpressDB
+- Run on default port 3306
+- Name of docker image: "Maria2024Jan"
+
+Wordpress CMS:
+- docker wordpress:6.4.2
+- depends on mariadb docker (see above)
+- Default admin/password/email for Wordpress:6.4.2: admin/vuhungOz2024/vuhung16oz@gmail.com
+- Use database `WordpressDB` we have created in the mysql docker
+- Wordpress runs on port 8080
+- name of the docker image: "wordpress2024Jan"
+
+PhpMyAdmin: 
+- docker phpmyadmin: latest stable 
+
+Volumes / map to /var/www/html
+
+Guide me which docker commandlines I should run to bring up and down wordpress
+
+## Bing/ChatGPT 4's Answer 
+
+```yaml
+version: '3.9'
+services:
+  db:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: Mari@Pass
+      MYSQL_DATABASE: WordpressDB
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: WpP@ssword
+    ports:
+      - "3306:3306"
+    restart: always
+    container_name: Maria2024Jan
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:6.4.2
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: WordpressDB
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: WpP@ssword
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_DEBUG', false);
+        define('WP_DEBUG_LOG', false);
+        define('WP_DEBUG_DISPLAY', false);
+    ports:
+      - "8080:80"
+    volumes:
+      - ./wordpress:/var/www/html
+    restart: on-failure
+    container_name: wordpress2024Jan
+  phpmyadmin:
+    depends_on:
+      - db
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: Mari@Pass
+    ports:
+      - "8081:80"
+    restart: always
+    container_name: phpmyadmin2024Jan
+
+```
+
+To bring up the containers, navigate to the directory containing the docker-compose.yaml file and run the following command:
+
+```
+docker-compose up -d
+```
+To stop the containers, run the following command:
+```
+docker-compose down
+```
+I hope this helps! Let me know if you have any other questions.
+
+## Bring up docker containers 
+```
+docker-compose up -d
+```
+
+## Complete Environments 
+
+This works like a charm
+
+1. Open Wordpress and set it up: http://localhost:8080/
+2. Open `phpmyadmin`: http://localhost:8081/ and use MariaDB's database username and password (root/Mari@Pass)
+
