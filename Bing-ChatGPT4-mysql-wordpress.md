@@ -418,6 +418,24 @@ a7b61ac513af   mariadb:latest                 "docker-entrypoint.s…"   7 minut
 
 1. Wordpress page: http://localhost:8080/
 2. phpmyadmin: http://localhost:8081/
+3. 
+
+# Docker Network
+
+A good follow-up prompt
+
+```
+Update the `docker-compose.yaml` file so that all containers are put in a single network named "wp-network"
+```
+
+This will add
+
+```
+networks:
+  wp-network:
+```
+
+to the yaml file.
 
 
 
