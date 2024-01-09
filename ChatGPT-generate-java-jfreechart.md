@@ -1,9 +1,16 @@
 # Overview 
 Bing/ChatGPT 4 can generate Java code using jfreechart to convert a CSV data into a PNG graph.
 
-# Thoughts 
+# Thoughts & Notes
 
-# Notes 
+- Hardcoding the CSV/PNG file paths make ChatGPT easier to code
+- There are rooms for improvements
+- Options for the graph requires understand about the library (I have not considered yet)
+- Follow-up questions should be an option because our prompt is very long already
+
+Code is not optimized 
+- "import java.nio.file.*;" is never used. Can be deleted.
+- "CSVFormat.TDF.withFirstRecordAsHeader()" is deprecated
 
 # The Prompt 
 
